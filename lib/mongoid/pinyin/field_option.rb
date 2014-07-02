@@ -19,6 +19,8 @@ module Mongoid
         abbr     = "#{name}_pinyin_abbr"
         osetter  = "_set_#{name}"
         nsetter  = "#{name}="
+        getter   = "#{name}"
+        updater  = "update_#{name}_pinyin!"
 
         model.class_eval do
           field sentence, :type => String
@@ -30,6 +32,14 @@ module Mongoid
             self.send "#{sentence}=", PinYin.sentence(value)
             self.send "#{abbr}=",     PinYin.abbr(value)
             self.send osetter,        value
+          end
+
+          define_method updater do
+            value = self.send getter
+
+            self.send "#{sentence}=", PinYin.sentence(value)
+            self.send "#{abbr}=",     PinYin.abbr(value)
+            self.save
           end
         end
       end

@@ -10,6 +10,7 @@ module Mongoid
 
       it {should respond_to :name_pinyin_sentence}
       it {should respond_to :name_pinyin_abbr}
+      it {should respond_to :update_name_pinyin!}
       it {expect(dummy.name).to eq "name名字"}
       it {expect(dummy.name_pinyin_sentence).to eq "name ming zi"}
       it {expect(dummy.name_pinyin_abbr).to eq "namemz"}
